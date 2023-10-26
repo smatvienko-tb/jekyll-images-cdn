@@ -4,8 +4,10 @@ require 'nokogiri'
 module Jekyll
   class ImagesCdn
     def self.modify_images(page)
+      return unless page.output.start_with?("<")
+
       config = page.site.config
-      base_url = ENV['ASSET_HOST'] || config.dig('images_cdn','base_cdn_url')
+      base_url = ENV['ASSET_HOST'] || config.dig('images_cdn', 'base_cdn_url')
       return if base_url.nil?
 
       base_url = base_url.gsub(/\s+/, '')
